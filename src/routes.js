@@ -1,9 +1,17 @@
 import { Router } from 'express';
 
-const routes = Router()
+import User from './app/models/User'
 
-routes.get('/', (req, res) => {
-    return res.json({ message: 'Hello Word'});
-})
+const routes = Router();
+
+routes.get('/', async (req, res) => {
+  const user = await User.create({
+    name: 'Felipe Santos',
+    email: 'felipe@gmail.com',
+    password_hash: '1234'
+
+  })
+  res.json(user);
+});
 
 export default routes;
