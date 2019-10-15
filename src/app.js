@@ -1,9 +1,8 @@
 import express from 'express';
 import path from 'path';
-
-// import routes from './routes/index.routes';
 import routes from './routes';
 
+import './database';
 class App {
   constructor() {
     this.server = express();
@@ -18,7 +17,6 @@ class App {
   }
 
   routes() {
-    // routes(this.server);
     this.server.use(routes);
   }
 }

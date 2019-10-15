@@ -8,7 +8,7 @@ import FileController from './app/controllers/FileController';
 import ProviderController from './app/controllers/ProviderController';
 import AppointmentController from './app/controllers/AppointmentController';
 
-import authMiddleware from './app/middlewares/auth';
+import authMiddleware  from './app/middlewares/auth';
 import ScheduleController from './app/controllers/ScheduleController';
 
 const routes = Router();
