@@ -26,5 +26,6 @@ routes.get('/provider', ProviderController.index);
 
 
 routes.post('/appointment', AppointmentController.store);
+routes.get('/appointment', AppointmentController.index);
 
 export default routes;
