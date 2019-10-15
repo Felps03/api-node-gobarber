@@ -11,15 +11,15 @@ import file from './file.routes';
 
 module.exports = server => {
 
-  auth(server, new Router());
+  auth(server, Router);
 
   server.use(AuthMiddleware, (req, res, next) => {
-    appointments(server, new Router());
-    auth(server, new Router());
-    file(server, new Router());
-    provider(server, new Router());
-    schedule(server, new Router());
-    users(server, new Router());
+    appointments(server, Router);
+    auth(server, Router);
+    file(server, Router);
+    provider(server, Router);
+    schedule(server, Router);
+    users(server, Router);
 
     next();
   });
