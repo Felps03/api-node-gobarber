@@ -29,10 +29,12 @@ routes.get('/provider', ProviderController.index);
 
 routes.post('/appointment', AppointmentController.store);
 routes.get('/appointment', AppointmentController.index);
+
 routes.get('/schedule', ScheduleController.index);
 
 
 routes.get('/notification', NotificationController.index);
+routes.put('/notification/:id', NotificationController.update);
 
 
 export default routes;
