@@ -6,7 +6,7 @@ import Appointment from '../models/Appointment'
 
 import Notification from '../schemas/Notification';
 
-class CreateAppointmentServices {
+class CreateAppointmentService {
   async run({ provider_id, user_id, date }) {
 
     const schema = Yup.object().shape({
@@ -63,4 +63,4 @@ class CreateAppointmentServices {
 
 }
 
-export default new CreateAppointmentServices();
+export default new CreateAppointmentService();

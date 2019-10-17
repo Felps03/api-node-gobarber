@@ -6,7 +6,7 @@ import Appointment from '../models/Appointment'
 import CancellationMail from '../jobs/CancellationMail';
 import Queue from '../../lib/Queue';
 
-class CancelAppointmentServices {
+class CancelAppointmentService {
   async run({ provider_id, user_id }) {
     const appointment = await Appointment.findByPk(provider_id, {
       include: [
@@ -36,4 +36,4 @@ class CancelAppointmentServices {
   }
 }
 
-export default new CancelAppointmentServices();
+export default new CancelAppointmentService();

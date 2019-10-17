@@ -10,7 +10,7 @@ import Notification from '../schemas/Notification';
 
 import File from '../models/File';
 
-import CancelAppointmentServices from '../services/CancelAppointmentServices';
+import CancelAppointmentService from '../services/CancelAppointmentService';
 
 class AppointmentController {
 
@@ -101,7 +101,7 @@ class AppointmentController {
   }
 
   async delete(req, res) {
-    const appointment = await CancelAppointmentServices.run({
+    const appointment = await CancelAppointmentService.run({
       provider_id: req.params.id,
       user_id: req.userId
     });
