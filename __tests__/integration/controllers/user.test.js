@@ -81,4 +81,47 @@ describe('User', () => {
     expect(response.status).toBe(400);
   });
 
+  it('should be able to update only the email for user and return all attributes', async () => {
+    const email = await request(app).post('/user').send({
+      name: "Felipe Santos",
+      email: "felipe@gmail.com",
+      password: "123456"
+    }).then(response => response.body.email);
+
+    const auth = await request(app).post('/sessions')
+      .send({
+        email,
+        password: '123456'
+      }).then(response => response.body);
+
+    const response = await request(app).put('/user').send({
+      email: 'felps@gmail.com'
+    }).set('Authorization', `Bearer ${auth.token}`);
+
+    expect(response.body).toHaveProperty('id', 'name', 'email', 'provider');
+  });
+
+  it('should fails if updating input in oldPassword different password user', async () => {
+    const email = await request(app).post('/user').send({
+      name: "Felipe Santos",
+      email: "felipe@gmail.com",
+      password: "123456"
+    }).then(response => response.body.email);
+
+    const auth = await request(app).post('/sessions')
+      .send({
+        email,
+        password: '123456'
+      }).then(response => response.body);
+
+    const response = await request(app).put('/user').send({
+      email: "felipesda@gmail.com",
+      oldPassword: '654321',
+      password: '654321',
+      confirmPassword: '654321',
+    }).set('Authorization', `Bearer ${auth.token}`);
+
+    expect(response.status).toBe(401);
+  });
+
 });
