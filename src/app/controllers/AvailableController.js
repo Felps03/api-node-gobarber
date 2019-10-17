@@ -9,8 +9,6 @@ class AvailableController {
 
     const searchDate = Number(date);
 
-    console.log(req.params.providerId);
-
     const available = await AvailableService.run({
       provider_id: req.params.providerId,
       date: searchDate
