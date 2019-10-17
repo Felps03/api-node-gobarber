@@ -9,16 +9,6 @@ import Notification from '../schemas/Notification';
 class CreateAppointmentService {
   async run({ provider_id, user_id, date }) {
 
-    const schema = Yup.object().shape({
-      provider_id: Yup.number().required(),
-      date: Yup.date().required(),
-    });
-
-    if (!(await schema.isValid(req.body)))
-      throw new Error('Validation fails');
-
-    const { provider_id, date } = req.body;
-
     const checkIsProvider = await User.findOne({
       where: { id: provider_id, provider: true }
     });
@@ -26,7 +16,7 @@ class CreateAppointmentService {
     if (!checkIsProvider)
       throw new Error('You can only create appointments with providers');
 
-    if (req.userId === provider_id)
+    if (user_id === provider_id)
       throw new Error('You can not create appointments with yourself.');
 
     const hourStart = startOfHour(parseISO(date));
@@ -46,12 +36,12 @@ class CreateAppointmentService {
       throw new Error('Appointment dates is not available');
 
     const appointment = await Appointment.create({
-      user_id: req.userId,
+      user_id,
       provider_id,
       date
     });
 
-    const user = await User.findByPk(req.userId);
+    const user = await User.findByPk(user_id);
     const formattedDate = format(hourStart, "'dia' dd 'de' MMMM 'de' yyyy', às' H:mm'h", { locale });
 
     await Notification.create({
@@ -59,8 +49,8 @@ class CreateAppointmentService {
       user: provider_id
     });
 
+    return appointment;
   }
-
 }
 
 export default new CreateAppointmentService();
