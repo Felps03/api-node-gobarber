@@ -47,14 +47,6 @@ class AppointmentController {
     //   date
     // });
 
-    const schema = Yup.object().shape({
-      provider_id: Yup.number().required(),
-      date: Yup.date().required(),
-    });
-
-    if (!(await schema.isValid(req.body)))
-      throw new Error('Validation fails');
-
     const { provider_id, date } = req.body;
 
     const checkIsProvider = await User.findOne({

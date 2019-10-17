@@ -13,15 +13,20 @@ import authMiddleware from './app/middlewares/auth';
 import ScheduleController from './app/controllers/ScheduleController';
 import NotificationController from './app/controllers/NotificationController';
 
+import validateUserStore from '../src/app/validators/UserStore';
+import validateUserUpdate from '../src/app/validators/UserUpdate';
+import validateSessionStore from '../src/app/validators/SessionStore';
+import validateAppointmentStore from '../src/app/validators/AppointmentStore';
+
 const routes = Router();
 const upload = multer(multerConfig);
 
-routes.post('/user', UserController.store);
-routes.post('/sessions', SessionController.store);
+routes.post('/user', validateUserStore, UserController.store);
+routes.post('/sessions', validateSessionStore, SessionController.store);
 
 routes.use(authMiddleware);
 
-routes.put('/user', UserController.update);
+routes.put('/user', validateUserUpdate, UserController.update);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
@@ -29,7 +34,7 @@ routes.get('/provider', ProviderController.index);
 routes.get('/provider/:providerId/available', AvailableController.index);
 
 
-routes.post('/appointment', AppointmentController.store);
+routes.post('/appointment', validateAppointmentStore, AppointmentController.store);
 routes.get('/appointment', AppointmentController.index);
 routes.delete('/appointment/:id', AppointmentController.delete);
 
