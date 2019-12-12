@@ -6,7 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/server.js",
-    "queue": "nodemon ./src/queue.js"
+    "queue": "nodemon ./src/queue.js",
+    "apidoc": "apidoc -i src -o public/apidoc"
+  },
+  "apidoc": {
+    "name": "Oministack 8 - Documentação de API",
+    "template": {
+      "forceLanguage": "pt_br"
+    }
   },
   "keywords": [],
   "author": "",
@@ -45,6 +52,7 @@
     "eslint-plugin-import": "^2.18.2",
     "nodemon": "^1.19.3",
     "sequelize-cli": "^5.5.1",
-    "sucrase": "^3.10.1"
+    "sucrase": "^3.10.1",
+    "apidoc": "^0.15.1"
   }
 }

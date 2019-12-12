@@ -31,6 +31,17 @@ const bruteStore = new BruteRedis({
 
 const bruteForce = new Brute(bruteStore);
 
+/**
+ * @api {post} / API User
+ * @apiGroup User
+ * @apiSuccess {String} status Mensagem de status da API
+ * @apiSuccessExample {json} Sucesso
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "status": "NTask API"
+ *    }
+ */
+
 routes.post('/user', validateUserStore, UserController.store);
 routes.post('/sessions', bruteForce.prevent, validateSessionStore, SessionController.store);
 
