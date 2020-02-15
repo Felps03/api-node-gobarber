@@ -5,4 +5,5 @@ node_modules/
 
 tmp/uploads/*
 !tmp/uploads/.gitkeep
-__tests__/coverage/lcov-report/*
+__tests__/coverage/*
+__tests__/database.sqlite

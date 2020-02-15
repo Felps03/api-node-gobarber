@@ -32,7 +32,6 @@ describe('Session', () => {
   it('[FAIL] Should create a session for user not fount', async () => {
     const user = await factory.attrs('User');
 
-    let email = user.email;
     let password = user.password;
 
     await request(app)
@@ -55,7 +54,6 @@ describe('Session', () => {
     const user = await factory.attrs('User');
 
     let email = user.email;
-    let password = user.password;
 
     await request(app)
       .post('/user')
@@ -65,7 +63,7 @@ describe('Session', () => {
       .post('/sessions')
       .send({
         email,
-        password: '123456',
+        password: 'ASDASD12331',
       })
       .expect(401)
       .expect('Content-Type', /json/);
