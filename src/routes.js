@@ -33,7 +33,7 @@ const bruteForce = new Brute(bruteStore);
 
 routes.post('/user', validateUserStore, UserController.store);
 
-if (process.env.NODE_ENV != 'development') {
+if (process.env.NODE_ENV === 'test') {
   routes.post('/sessions', validateSessionStore, SessionController.store);
 } else {
   routes.post(
