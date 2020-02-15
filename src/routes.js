@@ -26,13 +26,23 @@ const upload = multer(multerConfig);
 
 const bruteStore = new BruteRedis({
   host: process.env.REDIS_HOST,
-  port: process.env.REDIS_POST
+  port: process.env.REDIS_POST,
 });
 
 const bruteForce = new Brute(bruteStore);
 
 routes.post('/user', validateUserStore, UserController.store);
-routes.post('/sessions', bruteForce.prevent, validateSessionStore, SessionController.store);
+
+if (process.env.NODE_ENV != 'development') {
+  routes.post('/sessions', validateSessionStore, SessionController.store);
+} else {
+  routes.post(
+    '/sessions',
+    bruteForce.prevent,
+    validateSessionStore,
+    SessionController.store
+  );
+}
 
 routes.use(authMiddleware);
 
@@ -43,16 +53,17 @@ routes.post('/files', upload.single('file'), FileController.store);
 routes.get('/provider', ProviderController.index);
 routes.get('/provider/:providerId/available', AvailableController.index);
 
-
-routes.post('/appointment', validateAppointmentStore, AppointmentController.store);
+routes.post(
+  '/appointment',
+  validateAppointmentStore,
+  AppointmentController.store
+);
 routes.get('/appointment', AppointmentController.index);
 routes.delete('/appointment/:id', AppointmentController.delete);
 
 routes.get('/schedule', ScheduleController.index);
 
-
 routes.get('/notification', NotificationController.index);
 routes.put('/notification/:id', NotificationController.update);
-
 
 export default routes;
