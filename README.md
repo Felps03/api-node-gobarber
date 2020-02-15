@@ -5,6 +5,7 @@
 To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js v10.15][nodejs] installed on your computer. From your command line:
 
 ### Install API
+
 ```bash
 # Clone this repository
 $ git clone https://github.com/Felps03/api-node-gobarber
@@ -26,4 +27,10 @@ $ docker run --name redismeetapp -p 6379:6379 -d -t redis:alpine
 
 # Run the API
 $ npm run dev
+```
+
+### Automatically fix problems
+
+```
+npx eslint --fix src --ext .js
 ```
