@@ -32,5 +32,19 @@ $ npm run dev
 ### Automatically fix problems
 
 ```
-npx eslint --fix src --ext .js
+$ npx eslint --fix src --ext .js
+```
+
+### Sequelize
+
+Generates a new migration file
+
+```
+$ npx sequelize-cli migrate:create --name=create-users
+```
+
+### Running Migrations
+
+```
+$ npx sequelize-cli db:migrate
 ```
