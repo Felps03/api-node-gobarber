@@ -16,11 +16,10 @@ describe('User', () => {
   it('[SUCCESS] should be able to register', async () => {
     const user = await factory.attrs('User');
 
-    const response = await request(app)
+    await request(app)
       .post('/user')
-      .send(user);
-
-    expect(response.status).toEqual(200);
+      .send(user)
+      .expect(200);
   });
 
   it('[FAIL] should not be able to register with dublicated email', async () => {
@@ -30,12 +29,11 @@ describe('User', () => {
       .post('/user')
       .send(user);
 
-    const response = await request(app)
+    await request(app)
       .post('/user')
-      .send(user);
-
-    expect(response.status).toEqual(400);
-    expect(response.body.error).toEqual('User already exists.');
+      .send(user)
+      .expect(400)
+      .expect({ error: 'User already exists.' });
   });
 
   it('[SUCCESS] should encrypt user password when new user created', async () => {
@@ -49,14 +47,13 @@ describe('User', () => {
   });
 
   it('[FAIL] should fails user without the email when new user created', async () => {
-    const response = await request(app)
+    await request(app)
       .post('/user')
       .send({
         name: 'Felipe',
         password: '123456',
-      });
-
-    expect(response.status).toBe(400);
+      })
+      .expect(400);
   });
 
   it('[FAIL] should fails user the email is not validated when new user update', async () => {
