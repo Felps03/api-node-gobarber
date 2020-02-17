@@ -60,34 +60,32 @@ describe('User', () => {
   });
 
   it('[FAIL] should fails user the email is not validated when new user update', async () => {
-    const response = await request(app)
+    await request(app)
       .put('/user')
       .send({
         email: '123456',
       })
-      .set('Authorization', TOKEN);
-    expect(response.status).toBe(401);
+      .set('Authorization', TOKEN)
+      .expect(401);
   });
-  /*
+
   it('[FAIL] should fails if updating input in oldPassword different password user', async () => {
-    const email = await request(app)
+    await request(app)
       .post('/user')
       .send({
         name: 'Felipe Santos',
         email: 'felipe@gmail.com',
         password: '123456',
-      })
-      .then(response => response.body.email);
-
-    const auth = await request(app)
-      .post('/sessions')
-      .send({
-        email,
-        password: '123456',
-      })
-      .then(response => response.body);
+      });
 
     const response = await request(app)
+      .post('/sessions')
+      .send({
+        email: 'felipe@gmail.com',
+        password: '123456',
+      });
+
+    await request(app)
       .put('/user')
       .send({
         email: 'felipesda@gmail.com',
@@ -95,9 +93,7 @@ describe('User', () => {
         password: '654321',
         confirmPassword: '654321',
       })
-      .set('Authorization', `Bearer ${auth.token}`);
-
-    expect(response.status).toBe(401);
+      .set('Authorization', `Bearer ${response.body.token}`)
+      .expect(401);
   });
-  */
 });
