@@ -38,16 +38,15 @@ describe('Session', () => {
       .post('/user')
       .send(user);
 
-    let response = await request(app)
+    await request(app)
       .post('/sessions')
       .send({
         email: 'felipe@gmail.com',
         password,
       })
       .expect(401)
-      .expect('Content-Type', /json/);
-
-    expect(response.body.error).toEqual('User not found');
+      .expect('Content-Type', /json/)
+      .expect({ error: 'User not found' });
   });
 
   it('[FAIL] Should create a session for password does not match', async () => {
@@ -59,15 +58,14 @@ describe('Session', () => {
       .post('/user')
       .send(user);
 
-    let response = await request(app)
+    await request(app)
       .post('/sessions')
       .send({
         email,
         password: 'ASDASD12331',
       })
       .expect(401)
-      .expect('Content-Type', /json/);
-
-    expect(response.body.error).toEqual('Password does not match');
+      .expect('Content-Type', /json/)
+      .expect({ error: 'Password does not match' });
   });
 });
